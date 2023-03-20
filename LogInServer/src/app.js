@@ -1,38 +1,22 @@
 require("dotenv").config();
-require("./config/database").connect();
 const express = require("express");
-const User = require("./model/user");
+const router = require("../src/routers/login.routers");
+const errorHandler = require("../src/errors/errorHandling");
 
-const app = express();
+const server = express();
 
-app.use(express.json());
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(router);
 
-app.post("/register",(req,res)=>{
-
+server.use(function (req, res) {
+    res.status(404).json({
+        error: true,
+        codigo: 404,
+        mensaje: "No se encuentra el recurso"
+    })
 });
 
-app.post("/login",async (req,res)=>{
-    try{
-        const {email,password} = req.body;
+server.use(errorHandler);
 
-        if(!(email&&password)){
-            res.status(400).send("Requeridos todos los Inputs")
-        }
-
-        const user = await User.findOne({email});
-
-        if(user && (await bcrypt.compare(password,user.password))){
-            const token = jwt.sign(
-                {user_id: user._id,email},
-                process.env.TOKEN_KEY,
-                {
-                    expiresIn: "2h",
-                }
-            );
-        }
-    } catch (err){
-        console.log(err);
-    }
-})
-
-module.exports = app;
+module.exports = server;
