@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `usuariostfg`.`usuarios` (
   `nombre` VARCHAR(45) NULL,
   `apellidos` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `pass` VARCHAR(45) NULL,
+  `pass` VARCHAR(100) NULL,
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
 
