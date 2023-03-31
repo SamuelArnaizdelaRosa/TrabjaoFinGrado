@@ -41,7 +41,7 @@ class GestorUsuarios {
     async registrarUsuario(req, res) {
         var passEncriptada = '';
         if (!(req.body.nombreUsuario && req.body.nombre && req.body.apellidos && req.body.email && req.body.pass)) {
-            res.status(400).send("Se requieren todos los campos.");
+            res.status(204).send("Se requieren todos los campos.");
             return;
         }
 
@@ -49,7 +49,7 @@ class GestorUsuarios {
 
         passEncriptada = await crypto.SHA256(req.body.pass).toString();
 
-        connection.query("SELECT * FROM usuarios where nombreusuario ='" + req.body.nombreUsuario + "' AND email='" + req.body.email + "'", function (error, result) {
+        connection.query("SELECT * FROM usuarios where nombreusuario ='" + req.body.nombreUsuario + "' OR email='" + req.body.email + "'", function (error, result) {
             if (error) {
                 console.log(error);
             } else if (result.length > 0) {
@@ -72,7 +72,7 @@ class GestorUsuarios {
 
     async login(req, res) {
         if (!(req.body.email && req.body.pass)) {
-            res.status(400).send("Requeridos todos los campos");
+            res.status(204).send("Requeridos todos los campos");
             return;
         }
         var passEncriptada = await crypto.SHA256(req.body.pass).toString();
@@ -80,13 +80,13 @@ class GestorUsuarios {
         connection.query("SELECT * FROM usuarios where email='" + req.body.email + "' AND pass='" + passEncriptada + "'", function (err, result) {
             if (err) {
                 console.log(err);
-                res.status(400).send("Problema con la conexión a la BBDD");
+                res.status(500).send("Problema con la conexión a la BBDD");
             } else if (result.length > 0) {
                 const token = jwt.sign(
                     { user_id: req.body.email },
                     process.env.TOKEN_KEY,
                     {
-                        expiresIn: "1m",
+                        expiresIn: "2h",
                     }
                 );
                 res.send({ status: 'ok', mensaje: 'Login correcto', token: token });
@@ -110,14 +110,14 @@ class GestorUsuarios {
             req.body.token || req.query.token || req.headers["x-access-token"];
 
         if (!(req.body.email && token)) {
-            res.status(400).send("Requeridos todos los campos");
+            res.status(204).send("Requeridos todos los campos");
             return;
         }
         connection.query("SELECT * FROM usuarios where token '" + token + "' AND email='" + req.body.email + "'", function (error, result) {
             if (error) {
-                res.status(400).send("Problemas con la BBDD");
+                res.status(500).send("Problemas con la BBDD");
             } else if (result.length > 0) {
-                res.send({ status: 'ok', mensaje:'Autenticación correcta'});
+                res.send({ status: 'ok', mensaje: 'Autenticación correcta' });
             }
         })
     }

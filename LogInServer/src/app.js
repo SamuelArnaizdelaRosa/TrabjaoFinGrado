@@ -2,10 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const router = require("../src/routers/login.routers");
 const errorHandler = require("../src/errors/errorHandling");
+const cors = require("cors");
 
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 server.use(express.urlencoded({ extended: false }));
 server.use(router);
 

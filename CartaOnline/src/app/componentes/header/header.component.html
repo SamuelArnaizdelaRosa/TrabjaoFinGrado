@@ -1,8 +1,21 @@
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        Bootstrap
-      </a>
+<nav class="navbar navbar-expand-lg  bg-dark">
+    <div class="container-fluid ">
+
+        <a class="navbar-brand text-white fs-2" [routerLink]="['/']">
+            <img src="assets/Images/logo.png" alt="Bootstrap" width="120" height="100"> Carta Online
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-row-reverse justify-content-between" id="navbarSupportedContent">
+            
+            <div class="">
+                <button class="btn btn-primary btn-lg" [routerLink]="['/login']">LogIn</button>
+                    
+                <button class="btn btn-secondary btn-lg" [routerLink]="['/register']">Registrarse</button>
+                
+            </div>
+        </div>
     </div>
-  </nav>
+</nav>
