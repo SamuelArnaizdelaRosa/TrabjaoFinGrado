@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  public registrado: boolean;
+
+  constructor() {
+    this.registrado = false;
+  }
 }

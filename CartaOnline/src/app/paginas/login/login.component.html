@@ -1,2 +1,20 @@
-<button class="btn btn-danger" (click)="mostrarUsuarios()">MOSTRAR USUARIOS</button>
-
+<div class="login">
+    <form class="custom-form" method="post">
+      <h1>Login</h1>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        [(ngModel)]="pass"
+        name="pass"
+        placeholder="Password"
+        required
+      />
+      <button type="submit" (click)="login()">Log in</button>
+    </form>
+  </div>

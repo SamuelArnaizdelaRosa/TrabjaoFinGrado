@@ -96,6 +96,8 @@ class GestorUsuarios {
                     } else {
                         if (result.affectedRows > 0) {
                             console.log("AÑADIDO TOKEN");
+                        }else{
+                            console.log("NO AÑADIDO TOKEN");
                         }
                     }
                 })
