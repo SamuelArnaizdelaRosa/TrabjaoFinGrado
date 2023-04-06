@@ -15,12 +15,13 @@ export class LoginComponent {
     this.email = "";
     this.pass = "";
   }
+  /*
   mostrarUsuarios() {
 
     this.loginService.getUsuarios().subscribe((usuarios: any) => {
       console.log(usuarios);
     })
-  }
+  }*/
 
   async login() {
     if (this.email == "" || this.pass == "") {
@@ -28,10 +29,9 @@ export class LoginComponent {
     } else {
       this.loginService.login(this.email, this.pass).subscribe((data: Respuesta) => {
         if(data.status=='ok'){
-          console.log("Iniciada sesión");
+          console.log("Iniciado sesión");
           this.loginService.setToken(data.token);
-          var token = 
-          console.log(this.loginService.getToken());
+          var token = this.loginService.getToken();
         }else{
           alert("Usuario o contraseña incorrectos");
         }

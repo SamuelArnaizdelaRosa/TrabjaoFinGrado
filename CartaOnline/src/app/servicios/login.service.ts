@@ -22,11 +22,24 @@ export class LoginService {
     return this.http.post(this.url + "login", { email: email, pass: pass });
   }
 
+  registrar(nombreUsuario: string, nombre: string, apellidos: string, email: string, pass: string): Observable<any> {
+    return this.http.post(this.url+"registrar",{nombreUsuario:nombreUsuario,nombre:nombre,apellidos:apellidos,email:email,pass:pass});
+  }
+
   setToken(token: string) {
     this.cookies.set("token", token);
   }
 
   getToken() {
     return this.cookies.get("token");
+  }
+
+  validateToken(token: string): Observable<any> {
+
+    return this.http.post(this.url + "auth", { token: token });
+  }
+
+  validateUserToken(token: string): Observable<any> {
+    return this.http.post(this.url + "authToken", { token: token });
   }
 }

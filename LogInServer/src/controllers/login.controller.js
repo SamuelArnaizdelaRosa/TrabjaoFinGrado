@@ -22,7 +22,7 @@ class GestorUsuarios {
         });
     }
 
-    comprobarRegistrado(nombreUsuario, email) {
+    /*comprobarRegistrado(nombreUsuario, email) {
         let yaRegistrado = false;
         connection.query("SELECT * FROM usuarios where nombreusuario ='" + nombreUsuario + "' AND email='" + email + "'", function (error, result) {
             if (error) {
@@ -36,7 +36,7 @@ class GestorUsuarios {
         });
         console.log(yaRegistrado);
         return yaRegistrado;
-    }
+    }*/
 
     async registrarUsuario(req, res) {
         var passEncriptada = '';
@@ -53,7 +53,7 @@ class GestorUsuarios {
             if (error) {
                 console.log(error);
             } else if (result.length > 0) {
-                res.status(400).send("Usuario ya registrado.")
+                res.send({status:'fail',mensaje:'Usuario ya registrado'})
                 return;
             } else {
                 connection.query("INSERT INTO usuarios (nombreusuario,nombre,apellidos,email,pass) VALUES('" +
@@ -111,15 +111,17 @@ class GestorUsuarios {
         const token =
             req.body.token || req.query.token || req.headers["x-access-token"];
 
-        if (!(req.body.email && token)) {
+        if (!token) {
             res.status(204).send("Requeridos todos los campos");
             return;
         }
-        connection.query("SELECT * FROM usuarios where token '" + token + "' AND email='" + req.body.email + "'", function (error, result) {
+        connection.query("SELECT * FROM usuarios where token= '" + token + "'", function (error, result) {
             if (error) {
                 res.status(500).send("Problemas con la BBDD");
             } else if (result.length > 0) {
-                res.send({ status: 'ok', mensaje: 'Autenticación correcta' });
+                res.send(result);
+            }else{
+                res.send({ status: 'fail', mensaje: 'No hay usuarios con este token' });
             }
         })
     }
