@@ -5,7 +5,7 @@
             <form [formGroup]="registerForm" (ngSubmit)="submit()">
                 <label for="nombreUsuario">Nombre de cuenta</label><br>
                 <input type="text" name="nombreUsuario" formControlName="nombreUsuario"><br><br>
-                
+
                 <label for="nombre">Nombre</label><br>
                 <input type="text" name="nombre" formControlName="nombre"><br><br>
 
@@ -13,7 +13,12 @@
                 <input type="text" name="apellidos" formControlName="apellidos"><br><br>
 
                 <label for="email">Email</label><br>
-                <input type="email" name="email" formControlName="email"><br><br>
+                <input type="email" name="email" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"><br><br>
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['pattern']">Email is invalid</div>
+                </div>
 
                 <label for="confemail">Confirmar Email</label><br>
                 <input type="email" name="confemail" formControlName="confEmail"><br><br>

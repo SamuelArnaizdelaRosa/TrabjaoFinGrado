@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Respuesta } from 'src/app/modelos/respuesta';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -8,11 +8,11 @@ import { LoginService } from 'src/app/servicios/login.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   emailPattern: any = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  createFormGroup() {
+  /*createFormGroup() {
     return new FormGroup({
       nombreUsuario: new FormControl('', [Validators.required]),
       nombre: new FormControl('', [Validators.required]),
@@ -22,16 +22,34 @@ export class RegisterComponent {
       pass: new FormControl('', [Validators.required]),
       confPass: new FormControl('', [Validators.required])
     });
-  }
+  }*/
 
-  registerForm: FormGroup;
+  registerForm: FormGroup = new FormGroup({
+    nombreUsuario: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required]),
+    apellidos: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+    confEmail: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+    pass: new FormControl('', [Validators.required]),
+    confPass: new FormControl('', [Validators.required])
+  });
+  submitted = false;
 
   constructor(private router: Router, private formBuilder: FormBuilder, public loginService: LoginService) {
-    this.registerForm = this.createFormGroup();
+    //this.registerForm = this.createFormGroup();
+    this.submitted = false;
   }
 
-  ngOnInit() {
-
+  ngOnInit():void {
+    this.registerForm = new FormGroup({
+      nombreUsuario: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required]),
+      apellidos: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      confEmail: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      pass: new FormControl('', [Validators.required]),
+      confPass: new FormControl('', [Validators.required])
+    });
   }
 
   registrar(nombreUsuario: string, nombre: string, apellidos: string, email: string, confEmail: string, pass: string, confPass: string) {
@@ -63,14 +81,30 @@ export class RegisterComponent {
   }
 
   submit() {
-    if (this.registerForm.valid) {
+    
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    this.submitted = true;
+
+    /*if (this.registerForm.valid) {
       this.registrar(this.registerForm.value.nombreUsuario, this.registerForm.value.nombre, this.registerForm.value.apellidos, this.registerForm.value.email, this.registerForm.value.confEmail, this.registerForm.value.pass, this.registerForm.value.confPass);
     } else {
       if (this.registerForm.get('email')?.errors || this.registerForm.get('confEmail')?.errors) {
         alert("Email no válido");
       }
-    }
+    }*/
+
+    console.log(JSON.stringify(this.registerForm.value, null, 2));
+    
   }
 
-  get email(){return this.registerForm.get('email')?.errors}
+  get email() {
+    return this.registerForm.get('email')
+  }
+
+  get f():{[key:string]: AbstractControl}{
+    return this.registerForm.controls;
+  }
 }
