@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router, private formBuilder: FormBuilder, public loginService: LoginService) {
     //this.registerForm = this.createFormGroup();
-    this.submitted = false;
+    
   }
 
   ngOnInit():void {
@@ -82,11 +82,11 @@ export class RegisterComponent implements OnInit {
 
   submit() {
     
+    this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
 
-    this.submitted = true;
 
     /*if (this.registerForm.valid) {
       this.registrar(this.registerForm.value.nombreUsuario, this.registerForm.value.nombre, this.registerForm.value.apellidos, this.registerForm.value.email, this.registerForm.value.confEmail, this.registerForm.value.pass, this.registerForm.value.confPass);
