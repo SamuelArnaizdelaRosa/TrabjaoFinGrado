@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Respuesta } from 'src/app/modelos/respuesta';
 import { Usuario } from 'src/app/modelos/usuario';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -11,7 +12,7 @@ export class LoginComponent {
 
   email: string;
   pass: string;
-  constructor(public loginService: LoginService) {
+  constructor(public loginService: LoginService, private router: Router) {
     this.email = "";
     this.pass = "";
   }
@@ -28,11 +29,12 @@ export class LoginComponent {
       alert("Ingrese todos los campos");
     } else {
       this.loginService.login(this.email, this.pass).subscribe((data: Respuesta) => {
-        if(data.status=='ok'){
+        if (data.status == 'ok') {
           console.log("Iniciado sesión");
           this.loginService.setToken(data.token);
           var token = this.loginService.getToken();
-        }else{
+          this.router.navigate(['/']);
+        } else {
           alert("Usuario o contraseña incorrectos");
         }
       });
