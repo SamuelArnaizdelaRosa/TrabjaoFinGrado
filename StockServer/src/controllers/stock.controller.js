@@ -58,42 +58,45 @@ connection.connect();*/
 class GestorStock {
     constructor() { }
 
-    getPedidos(req, res,next) {
+    async getPedidos(req, res, next) {
+        let article = 9;
         sql.connect(config, function (err) {
             if (err)
-             console.log(err);
-          
+                console.log(err);
+
             var request = new sql.Request();
-            request.query('Select [Article],[Description],[Amount] from [Central].[dbo].[SalesOrderLine] where orderNumber = 13', function (err, result) {
-          
-              if (err) {
-               console.log(err);
-               res.send(err);
-              }else{
-                res.send(result);
-              }
-              sql.close();
-              
-             });
-           });
-        /*console.log("HOLA");
-        try {
-            // make sure that any items are correctly URL encoded in the connection string
-            sql.connect(config)
-            console.log("CONEXIÓN HECHA")
-            const result = sql.query`SELECT * FROM [Central].[dbo].[SalesOrderLine]`
+            request.query('Select article,amount,description,orderNumber from [Central].[dbo].[SalesOrderLine] where orderNumber >= 12', function (err, result) {
 
-            console.dir(result)
-            res.send(result);
-        } catch (err) {
-            res.send(err);
-        }*/
+                if (err) {
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    var pedidos = (result.recordset);
+                    article = 87;
+                }
+                sql.close();
+            });
+        });
+        await new Promise(r => setTimeout(r, 2000));
+        sql.connect(config, function (err) {
+            if (err)
+                console.log(err);
+
+            var request = new sql.Request();
+            console.log(article);
+            request.query('Select number,description1,description2 from [Central].[dbo].[Article] where Number = ' + article, function (err, result) {
+
+                if (err) {
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    res.send(result);
+                }
+                sql.close();
+            });
+        });
+
     }
-
-
 }
-
-
-
 
 module.exports = GestorStock;
