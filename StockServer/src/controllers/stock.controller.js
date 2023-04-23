@@ -1,4 +1,4 @@
-const mysql = require("mssql");
+const sql = require("mssql");
 
 const config = {
     authentication: {
@@ -11,22 +11,24 @@ const config = {
     server: 'localhost\\DSTNET',
     database: 'Central',
     options: {
-      trustServerCertificate: true,
-      encrypt:false
+        trustServerCertificate: false,
+        encrypt: false
     }
-  }
-  
-  var connection = async function() {
-    try {
-      await mysql.connect(config)
-      console.log('Conexión exitosa a la base de datos SQL Server!')
-    } catch (err) {
-      console.error('Error al intentar conectarse a la base de datos SQL Server:', err.message)
-    }
-  }
+}
 
-  connection.call();
-  
+/*var connection = async () => {
+    try {
+        await mysql.connect(config)
+        console.log('Conexión exitosa a la base de datos SQL Server!')
+    } catch (err) {
+        console.error('Error al intentar conectarse a la base de datos SQL Server:', err.message)
+    }
+}
+
+connection.call();*/
+
+
+
 //var Connection = require('tedious').Connection;
 
 /*var config = {
@@ -56,19 +58,42 @@ connection.connect();*/
 class GestorStock {
     constructor() { }
 
-   getPedidos(req, res) {
-        /*connection.query("SELECT * FROM SalesOrderLine", function (error, result) {
-            if (error) {
-                console.log(error);
-            } else if (result.length > 0) {
+    getPedidos(req, res,next) {
+        sql.connect(config, function (err) {
+            if (err)
+             console.log(err);
+          
+            var request = new sql.Request();
+            request.query('Select [Article],[Description],[Amount] from [Central].[dbo].[SalesOrderLine] where orderNumber = 13', function (err, result) {
+          
+              if (err) {
+               console.log(err);
+               res.send(err);
+              }else{
                 res.send(result);
-            } else { res.send({ status: 'ok', mensaje: 'Tabla vacía' }) }
-        });*/
+              }
+              sql.close();
+              
+             });
+           });
+        /*console.log("HOLA");
+        try {
+            // make sure that any items are correctly URL encoded in the connection string
+            sql.connect(config)
+            console.log("CONEXIÓN HECHA")
+            const result = sql.query`SELECT * FROM [Central].[dbo].[SalesOrderLine]`
 
-
+            console.dir(result)
+            res.send(result);
+        } catch (err) {
+            res.send(err);
+        }*/
     }
 
 
 }
+
+
+
 
 module.exports = GestorStock;
