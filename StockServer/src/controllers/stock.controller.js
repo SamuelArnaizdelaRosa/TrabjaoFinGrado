@@ -58,44 +58,72 @@ connection.connect();*/
 class GestorStock {
     constructor() { }
 
-    async getPedidos(req, res, next) {
-        let article = 9;
+    getPedidos(req, res, next) {
+        var pedidos;
+        var orderNumber = 12;
         sql.connect(config, function (err) {
-            if (err)
+            if (err) {
                 console.log(err);
+            } else {
+                var request = new sql.Request();
+                request.query('Select article,amount,description,orderNumber from [Central].[dbo].[SalesOrderLine] where orderNumber >= ' + orderNumber + '', function (err, result) {
 
-            var request = new sql.Request();
-            request.query('Select article,amount,description,orderNumber from [Central].[dbo].[SalesOrderLine] where orderNumber >= 12', function (err, result) {
-
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                } else {
-                    var pedidos = (result.recordset);
-                    article = 87;
-                }
-                sql.close();
-            });
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    } else {
+                        pedidos = (result.recordset);
+                        res.send(pedidos);
+                    }
+                    sql.close();
+                });
+            }
         });
-        await new Promise(r => setTimeout(r, 2000));
+    }
+
+    getProductos(req, res, next) {
+        var productos;
         sql.connect(config, function (err) {
-            if (err)
+            if (err) {
                 console.log(err);
+            } else {
+                var request = new sql.Request();
+                request.query('Select number,parent,description1,description2,description3,description4 FROM [Central].[dbo].[Article]', function (err, result) {
 
-            var request = new sql.Request();
-            console.log(article);
-            request.query('Select number,description1,description2 from [Central].[dbo].[Article] where Number = ' + article, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    } else {
+                        productos = (result.recordset);
+                        res.send(productos);
 
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                } else {
-                    res.send(result);
-                }
-                sql.close();
-            });
+                    }
+                    sql.close();
+                });
+            }
         });
+    }
 
+    getPrecio(req, res, next) {
+        var precios;
+        sql.connect(config, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                var request = new sql.Request();
+                request.query('Select article,price FROM [Central].[dbo].[ArticleTariff] where price is not null', function (err, result) {
+
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    } else {
+                        precios = (result.recordset);
+                        res.send(precios);
+                    }
+                    sql.close();
+                });
+            }
+        });
     }
 }
 
