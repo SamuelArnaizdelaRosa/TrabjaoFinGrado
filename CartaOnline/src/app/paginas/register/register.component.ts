@@ -35,12 +35,12 @@ export class RegisterComponent implements OnInit {
   });
   submitted = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, public loginService: LoginService) {
+  constructor(private router: Router, public loginService: LoginService) {
     //this.registerForm = this.createFormGroup();
-    
+
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.registerForm = new FormGroup({
       nombreUsuario: new FormControl('', [Validators.required]),
       nombre: new FormControl('', [Validators.required]),
@@ -52,59 +52,78 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  registrar(nombreUsuario: string, nombre: string, apellidos: string, email: string, confEmail: string, pass: string, confPass: string) {
-    if (!nombreUsuario || !nombre || !apellidos || !email || !confEmail || !pass || !confPass) {
-      alert("Ingrese todos los datos")
-    } else {
-      if (confEmail != email) {
-        alert("Los Email no coinciden");
-      } else {
-        if (confPass != pass) {
-          alert("Las contraseñas no coinciden");
-        } else {
-
-          this.loginService.registrar(nombreUsuario, nombre, apellidos, email, pass).subscribe((data: Respuesta) => {
-            if (data.status == "fail") {
-              alert(data.mensaje);
-            } else {
-              alert(data.mensaje);
-              this.router.navigate(['/']);
-            }
-          });
-        }
-      }
-    }
-  }
-
   onResetForm() {
     this.registerForm.reset();
   }
 
   submit() {
-    
+
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
 
+    var nombreUsuario:string= this.getnombreUsuario()?.value;
+    var nombre: string = this.getnombre()?.value;
+    var apellidos: string = this.getapellidos()?.value;
+    var confEmail: string = this.getconfEmail()?.value;
+    var email: string = this.getemail()?.value;
+    var pass: string = this.getpass()?.value;
+    var confPass: string = this.getconfPass()?.value;
 
-    /*if (this.registerForm.valid) {
-      this.registrar(this.registerForm.value.nombreUsuario, this.registerForm.value.nombre, this.registerForm.value.apellidos, this.registerForm.value.email, this.registerForm.value.confEmail, this.registerForm.value.pass, this.registerForm.value.confPass);
-    } else {
-      if (this.registerForm.get('email')?.errors || this.registerForm.get('confEmail')?.errors) {
-        alert("Email no válido");
-      }
-    }*/
 
     console.log(JSON.stringify(this.registerForm.value, null, 2));
+
+    console.log(nombreUsuario);
     
+    if (confEmail !== email) {
+      alert("Los Email no coinciden");
+    } else {
+      if (confPass !== pass) {
+        alert("Las contraseñas no coinciden");
+      } else {
+
+        this.loginService.registrar(nombreUsuario, nombre, apellidos, email, pass).subscribe((data: Respuesta) => {
+          if (data.status == "fail") {
+            alert(data.mensaje);
+          } else {
+            alert(data.mensaje);
+            this.router.navigate(['/']);
+          }
+        });
+      }
+    }
   }
 
-  get email() {
-    return this.registerForm.get('email')
+  getnombreUsuario() {
+    return this.registerForm.get('nombreUsuario');
   }
 
-  get f():{[key:string]: AbstractControl}{
+  getnombre() {
+    return this.registerForm.get('nombre');
+  }
+
+  getapellidos() {
+    return this.registerForm.get('apellidos');
+  }
+
+  getemail() {
+    return this.registerForm.get('email');
+  }
+
+  getconfEmail() {
+    return this.registerForm.get('confEmail');
+  }
+
+  getpass() {
+    return this.registerForm.get('pass');
+  }
+
+  getconfPass() {
+    return this.registerForm.get('confpass');
+  }
+
+  get f(): { [key: string]: AbstractControl } {
     return this.registerForm.controls;
   }
 }

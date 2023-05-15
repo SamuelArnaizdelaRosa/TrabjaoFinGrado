@@ -1,35 +1,67 @@
-<div style="display: flex; justify-content: center;">
+<div id="formularioRegistro">
     <div class="card" style="width: 40rem; ">
         <div class="card-body" style="text-align: center;">
-            <h2 class="card-title"><u>Registro de Usuario</u></h2>
+            <h2 class="card-title"><u>Registro de Usuario</u></h2><br>
             <form [formGroup]="registerForm" (ngSubmit)="submit()">
-                <label for="nombreUsuario">Nombre de cuenta</label><br>
-                <input type="text" name="nombreUsuario" formControlName="nombreUsuario"><br><br>
+                <label for="nombreUsuario">Nombre de Usuario</label><br>
+                <input type="text" name="nombreUsuario" formControlName="nombreUsuario" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['nombreUsuario'].errors }">
+                <div *ngIf="submitted && f['nombreUsuario'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nombreUsuario'].errors['required']">Nombre de Usuario obligatorio</div>
+                </div>
+                <br>
 
                 <label for="nombre">Nombre</label><br>
-                <input type="text" name="nombre" formControlName="nombre"><br><br>
+                <input type="text" name="nombre" formControlName="nombre" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+                <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nombre'].errors['required']">Nombre obligatorio</div>
+                </div>
+                <br>
 
                 <label for="apellidos">Apellidos</label><br>
-                <input type="text" name="apellidos" formControlName="apellidos"><br><br>
+                <input type="text" name="apellidos" formControlName="apellidos" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['apellidos'].errors }">
+                <div *ngIf="submitted && f['apellidos'].errors" class="invalid-feedback">
+                    <div *ngIf="f['apellidos'].errors['required']">Apellidos obligatorio</div>
+                </div>
+                <br>
 
                 <label for="email">Email</label><br>
                 <input type="email" name="email" formControlName="email" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"><br><br>
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
                 <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                    <div *ngIf="f['email'].errors['required']">Email is required</div>
-                    <div *ngIf="f['email'].errors['pattern']">Email is invalid</div>
+                    <div *ngIf="f['email'].errors['required']">Email obligatorio</div>
+                    <div *ngIf="f['email'].errors['pattern']">Email no válido</div>
                 </div>
+                <br>
 
-                <label for="confemail">Confirmar Email</label><br>
-                <input type="email" name="confemail" formControlName="confEmail"><br><br>
+                <label for="confEmail">Confirmación Email</label><br>
+                <input type="email" name="confEmail" formControlName="confEmail" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['confEmail'].errors }">
+                <div *ngIf="submitted && f['confEmail'].errors" class="invalid-feedback">
+                    <div *ngIf="f['confEmail'].errors['required']">Email obligatorio</div>
+                    <div *ngIf="f['confEmail'].errors['pattern']">Email no válido</div>
+                </div>
+                <br>
 
                 <label for="pass">Contraseña</label><br>
-                <input type="password" name="pass" formControlName="pass"><br><br>
+                <input type="text" name="pass" formControlName="pass" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['pass'].errors }">
+                <div *ngIf="submitted && f['pass'].errors" class="invalid-feedback">
+                    <div *ngIf="f['pass'].errors['required']">Contraseña obligatoria</div>
+                </div>
+                <br>
 
-                <label for="confpass">Confirmar Contraseña</label><br>
-                <input type="password" name="confpass" formControlName="confPass"><br><br>
+                <label for="confPass">Confirmar Contraseña</label><br>
+                <input type="text" name="confPass" formControlName="confPass" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['confPass'].errors }">
+                <div *ngIf="submitted && f['confPass'].errors" class="invalid-feedback">
+                    <div *ngIf="f['confPass'].errors['required']">Contraseña obligatoria</div>
+                </div>
+                <br>
 
-                <button type="submit" class="btn btn-lg btn-success">Registrarse</button>
+                <button type="submit" class="btn btn-lg btn-dark">Registrarse</button>
             </form>
         </div>
     </div>

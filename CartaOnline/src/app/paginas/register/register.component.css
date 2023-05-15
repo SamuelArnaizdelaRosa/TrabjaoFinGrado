@@ -1,0 +1,18 @@
+#formularioRegistro {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    
+}
+
+#formularioRegistro>div{
+    background-color: rgb(168, 212, 159);
+    box-shadow: 13px 13px 20px #7a7b7c, -13px -13px 20px #ffffff;
+    
+}
+
+input{
+    background-color: rgb(235, 233, 233);
+    text-align: center;
+    border-color: none;
+}
