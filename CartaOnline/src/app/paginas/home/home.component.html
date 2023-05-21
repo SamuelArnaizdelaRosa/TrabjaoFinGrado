@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="contenedor" onload="printProductos()">
+    <div class="containter" *ngIf="categorias.size != 0">
+        <div class="row">
+            <div class="col-3" id="categorias">
+                <ul>
+                    <ng-container *ngFor="let recipient of categorias|keyvalue">
+                        <li class="categorias" (click)="mostrarCategoria(recipient.key)">{{recipient.value}}</li> 
+                    </ng-container>
+                </ul>
+            </div>
+            <div class="col-9">
+                <ul>
+                    <ng-container *ngFor="let p of listaProductos">
+                       
+                            <li *ngIf="p.parent == categoriaSeleccionada && precios.get(p.number)">{{p.description1}} {{p.description2}} {{p.description3}} {{p.description4}}................................  {{precios.get(p.number)}}€</li>
+                       
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+        <button >PRODUCTOS</button>
+
+    </div>
+    <div *ngIf="categorias.size == 0"><button (click)="printCarta()">MOSTRAR CARTA</button></div>
+</div>

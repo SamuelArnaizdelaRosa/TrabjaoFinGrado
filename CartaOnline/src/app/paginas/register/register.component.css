@@ -6,13 +6,15 @@
 }
 
 #formularioRegistro>div{
-    background-color: rgb(168, 212, 159);
+    background-color: #bcd8c1;
     box-shadow: 13px 13px 20px #7a7b7c, -13px -13px 20px #ffffff;
-    
+    border-radius: 3rem;
+    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
 }
 
 input{
-    background-color: rgb(235, 233, 233);
+    background: rgb(235, 233, 233);
     text-align: center;
     border-color: none;
+    box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px rgba(0, 0, 0, 0.1);
 }

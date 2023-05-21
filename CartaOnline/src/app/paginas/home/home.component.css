@@ -1,0 +1,14 @@
+.contenedor{
+    width: 60%;
+    margin: auto;
+}
+
+
+#categorias{
+    border-right: 1px solid black;
+}
+
+.categorias{
+    cursor: pointer;
+    margin-top: 10px;
+}

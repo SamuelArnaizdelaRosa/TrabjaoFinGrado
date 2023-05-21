@@ -46,7 +46,7 @@
                 <br>
 
                 <label for="pass">Contraseña</label><br>
-                <input type="text" name="pass" formControlName="pass" class="form-control"
+                <input type="password" name="pass" formControlName="pass" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f['pass'].errors }">
                 <div *ngIf="submitted && f['pass'].errors" class="invalid-feedback">
                     <div *ngIf="f['pass'].errors['required']">Contraseña obligatoria</div>
@@ -54,7 +54,7 @@
                 <br>
 
                 <label for="confPass">Confirmar Contraseña</label><br>
-                <input type="text" name="confPass" formControlName="confPass" class="form-control"
+                <input type="password" name="confPass" formControlName="confPass" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f['confPass'].errors }">
                 <div *ngIf="submitted && f['confPass'].errors" class="invalid-feedback">
                     <div *ngIf="f['confPass'].errors['required']">Contraseña obligatoria</div>

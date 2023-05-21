@@ -44,7 +44,7 @@ h1 {
   letter-spacing: 0.15em;
   border: none;
   font-size: 0.875rem;
-  color: #ffffff;
+  color: #3f3d3d;
   font-weight: bold;
   background-color: #bcd8c1;
   width: 100%;
@@ -53,4 +53,8 @@ h1 {
   border-radius: 1.5rem;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   cursor: pointer;
+}
+.custom-form button:hover{
+  background-color: #8fa393;
+  transition: 1s;
 }
