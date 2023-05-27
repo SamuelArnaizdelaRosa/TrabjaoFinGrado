@@ -1,3 +1,7 @@
 #navbarSupportedContent{
     text-align: right!important;
 }
+
+#botones>button{
+    margin-right: 15px;
+}

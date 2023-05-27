@@ -4,22 +4,26 @@
             <div class="col-3" id="categorias">
                 <ul>
                     <ng-container *ngFor="let recipient of categorias|keyvalue">
-                        <li class="categorias" (click)="mostrarCategoria(recipient.key)">{{recipient.value}}</li> 
+                        <li class="categorias" (click)="mostrarCategoria(recipient.key)">{{recipient.value}}</li>
                     </ng-container>
                 </ul>
             </div>
             <div class="col-9">
-                <ul>
+                <ul class="productos">
                     <ng-container *ngFor="let p of listaProductos">
-                       
-                            <li *ngIf="p.parent == categoriaSeleccionada && precios.get(p.number)">{{p.description1}} {{p.description2}} {{p.description3}} {{p.description4}}................................  {{precios.get(p.number)}}€</li>
-                       
+
+                        <li *ngIf="p.parent == categoriaSeleccionada && precios.get(p.number)">{{p.description1}} {{p.description2}} {{p.description3}} {{p.description4}}................................{{precios.get(p.number)}}€
+                            <ng-container *ngIf="registrado" id="stock">
+                                <img *ngIf="p.stock" src="assets/Images/check.svg" alt="Disponible">
+                                <img *ngIf="!p.stock" src="assets/Images/checkErro.svg" alt="No disponible">
+                            </ng-container>
+                        </li>
+
                     </ng-container>
                 </ul>
             </div>
         </div>
-        <button >PRODUCTOS</button>
-
+        
     </div>
     <div *ngIf="categorias.size == 0"><button (click)="printCarta()">MOSTRAR CARTA</button></div>
 </div>

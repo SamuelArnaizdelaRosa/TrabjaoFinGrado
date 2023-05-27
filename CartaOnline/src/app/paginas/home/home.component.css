@@ -1,14 +1,41 @@
-.contenedor{
+.contenedor {
     width: 60%;
     margin: auto;
 }
 
 
-#categorias{
+#categorias {
     border-right: 1px solid black;
+    text-align: center;
+    margin: 50px 0px;
 }
 
-.categorias{
+.categorias {
     cursor: pointer;
     margin-top: 10px;
+    list-style-type: none;
+    margin-top: 20px;
+    background-color: rgb(120, 187, 187);
+    border-radius: 10px;
+}
+
+.categorias:hover {
+    background-color: rgb(176, 233, 233);
+    transition: 1s;
+}
+
+img {
+    width: 20px;
+}
+
+.productos {
+    margin: 30px 60px;
+    list-style-type: none;
+}
+.productos>li{
+    margin: 10px;
+}
+
+#stock{
+    margin-left: 50px;
 }

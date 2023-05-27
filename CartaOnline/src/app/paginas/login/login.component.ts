@@ -32,7 +32,6 @@ export class LoginComponent {
         if (data.status == 'ok') {
           console.log("Iniciado sesión");
           this.loginService.setToken(data.token);
-          var token = this.loginService.getToken();
           this.router.navigate(['/']);
         } else {
           alert("Usuario o contraseña incorrectos");

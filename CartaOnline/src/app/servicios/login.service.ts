@@ -34,6 +34,10 @@ export class LoginService {
     return this.cookies.get("token");
   }
 
+  deleteToken(){
+    return this.cookies.delete("token")
+  }
+
   validateToken(token: string): Observable<any> {
 
     return this.http.post(this.url + "auth", { token: token });

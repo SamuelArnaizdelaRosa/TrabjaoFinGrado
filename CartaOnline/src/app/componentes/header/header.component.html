@@ -10,14 +10,16 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             
-            <div class="" *ngIf="!registrado">
-                <button class="btn btn-primary btn-lg" [routerLink]="['/login']">LogIn</button>
+            <div class="" id="botones" *ngIf="!registrado">
+                <button class="btn btn-primary btn-lg" [routerLink]="['/login']">Iniciar Sesión</button>
                     
                 <button class="btn btn-secondary btn-lg" [routerLink]="['/register']">Registrarse</button>
             </div>
 
-            <div class="d-flex align-items-center" *ngIf="registrado">
-                <button class="btn btn-info btn-lg text-black" [routerLink]="['/']">Bienvenido: {{nombreUsuario}}</button>
+            <div class="d-flex align-items-center" id="botones" *ngIf="registrado">
+                
+                <button class="btn btn-info btn-lg text-black">Bienvenido: {{nombreUsuario}}</button>
+                <button class="btn btn-danger btn-lg text-black" (click)="logout()" [routerLink]="['/login']">Cerrar sesión</button>
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Respuesta } from 'src/app/modelos/respuesta';
 import { LoginService } from 'src/app/servicios/login.service';
 
@@ -12,7 +13,7 @@ export class HeaderComponent {
   public registrado: boolean;
   public nombreUsuario: string;
 
-  constructor(public loginService: LoginService) {
+  constructor(public loginService: LoginService, public cookie: CookieService) {
     this.nombreUsuario ="";
     this.registrado = false;
 
@@ -40,7 +41,17 @@ export class HeaderComponent {
       } else {
         this.registrado = false;
       }
+      if(this.registrado){
+        this.cookie.set("registrado","si")
+      }else{
+        this.cookie.set("registrado","no")
+      }
     }, 1000);
   }
+
+  logout(){
+    this.loginService.deleteToken();
+  }
+
 }
 
