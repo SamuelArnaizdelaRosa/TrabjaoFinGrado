@@ -39,3 +39,18 @@ img {
 #stock{
     margin-left: 50px;
 }
+
+.imprProductos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px!important;
+    background-color: #faf0e6;
+}
+
+#mostrar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 200px 0;
+}

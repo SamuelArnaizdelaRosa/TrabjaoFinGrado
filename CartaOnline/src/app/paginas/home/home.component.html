@@ -12,18 +12,20 @@
                 <ul class="productos">
                     <ng-container *ngFor="let p of listaProductos">
 
-                        <li *ngIf="p.parent == categoriaSeleccionada && precios.get(p.number)">{{p.description1}} {{p.description2}} {{p.description3}} {{p.description4}}................................{{precios.get(p.number)}}€
-                            <ng-container *ngIf="registrado" id="stock">
+                        <li *ngIf="p.parent == categoriaSeleccionada && precios.get(p.number)" class="imprProductos">
+                            {{p.description1}} {{p.description2}} {{p.description3}} {{p.description4}}
+                            <div *ngIf="!registrado" id="precio">{{precios.get(p.number)}} €</div>
+                            <div *ngIf="registrado" id="stock">
                                 <img *ngIf="p.stock" src="assets/Images/check.svg" alt="Disponible">
                                 <img *ngIf="!p.stock" src="assets/Images/checkErro.svg" alt="No disponible">
-                            </ng-container>
+                            </div>
                         </li>
 
                     </ng-container>
                 </ul>
             </div>
         </div>
-        
+
     </div>
-    <div *ngIf="categorias.size == 0"><button (click)="printCarta()">MOSTRAR CARTA</button></div>
+    <div *ngIf="categorias.size == 0" id="mostrar"><button (click)="printCarta()" class="btn btn-lg btn-warning" >MOSTRAR CARTA</button></div>
 </div>
