@@ -7,7 +7,7 @@ export class Producto {
     public parent?:number;
     public stock?:boolean;
 
-    constructor(description1:string,description2?:string,description3?:string,description4?:string,number?:number,parent?:number,stock:boolean=true){
+    constructor(description1?:string,description2?:string,description3?:string,description4?:string,number?:number,parent?:number,stock:boolean=true){
         this.description1=description1;
         this.description2=description2;
         this.description3=description3;

@@ -22,30 +22,12 @@ class GestorUsuarios {
         });
     }
 
-    /*comprobarRegistrado(nombreUsuario, email) {
-        let yaRegistrado = false;
-        connection.query("SELECT * FROM usuarios where nombreusuario ='" + nombreUsuario + "' AND email='" + email + "'", function (error, result) {
-            if (error) {
-                console.log(error);
-            } else if (result.length != 0) {
-                console.log(result);
-                yaRegistrado = true;
-            } else {
-                yaRegistrado = false;
-            }
-        });
-        console.log(yaRegistrado);
-        return yaRegistrado;
-    }*/
-
     async registrarUsuario(req, res) {
         var passEncriptada = '';
         if (!(req.body.nombreUsuario && req.body.nombre && req.body.apellidos && req.body.email && req.body.pass)) {
             res.status(204).send("Se requieren todos los campos.");
             return;
         }
-
-        //let yaRegistrado = this.comprobarRegistrado(req.body.nombreUsuario, req.body.email);
 
         passEncriptada = await crypto.SHA256(req.body.pass).toString();
 

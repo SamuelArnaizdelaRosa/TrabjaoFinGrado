@@ -11,7 +11,6 @@ import { RegisterComponent } from './paginas/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { ProductosDirective } from './directivas/productos.directive';
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { ProductosDirective } from './directivas/productos.directive';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
-    ProductosDirective
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
